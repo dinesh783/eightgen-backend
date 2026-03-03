@@ -1,4 +1,4 @@
-## Eightgen API Management Backend
+## Api-service
 
 Backend service that sits in front of internal APIs and exposes them safely to external partners.  
 Built with FastAPI, MySQL, and Docker, it adds **API key authentication**, **per-partner rate limiting**, and a **proxy layer** to JSONPlaceholder (simulating internal microservices).
@@ -48,8 +48,8 @@ Built with FastAPI, MySQL, and Docker, it adds **API key authentication**, **per
 #### 1. Setup
 
 ```bash
-git clone https://github.com/dinesh783/eightgen-backend.git
-cd eightgen-backend
+git clone https://github.com/dinesh783/Api-service.git
+cd Api-service
 
 python -m venv venv
 venv\Scripts\activate   # on Windows
@@ -84,7 +84,7 @@ uvicorn app.main:app --reload
 Build the image:
 
 ```bash
-docker build -t eightgen-backend .
+docker build -t Api-service .
 ```
 
 Run the container (MySQL running on the host):
@@ -95,13 +95,45 @@ docker run -p 8001:8000 ^
   -e DB_USER=your_mysql_user ^
   -e DB_PASSWORD=your_mysql_password ^
   -e DB_NAME=eightgen ^
-  eightgen-backend
+  Api-service
 ```
 
 - Health: `http://127.0.0.1:8001/health`
 - Docs: `http://127.0.0.1:8001/docs`
 
 ---
+
+### Example Request and Response
+
+Health check request:
+
+```bash
+curl -X GET http://127.0.0.1:8000/health
+```
+
+Health check response:
+
+```json
+{
+  "status": "Running"
+}
+```
+
+Chat request:
+
+```bash
+curl -X POST http://127.0.0.1:8000/chat \
+  -H "Content-Type: application/json" \
+  -d "{\"message\":\"Hello\"}"
+```
+
+Chat response:
+
+```json
+{
+  "response": "..."
+}
+```
 
 ### 📡 Example Flows
 
