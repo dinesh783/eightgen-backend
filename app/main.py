@@ -3,7 +3,7 @@ import time
 from collections import defaultdict
 
 import httpx
-from fastapi import Depends, FastAPI, Header, HTTPException, status
+from fastapi import Depends, FastAPI, Header, HTTPException, Response, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -13,7 +13,7 @@ from .database import Base, SessionLocal, engine
 from .models import Partner
 from .schemas import ChatRequest, PartnerCreate, PartnerOut
 
-app = FastAPI(title="Eightgen AI Backend")
+app = FastAPI(title="Api-service")
 
 
 @app.on_event("startup")
@@ -37,6 +37,20 @@ def get_db():
 @app.get("/health")
 def health():
     return {"status": "Running"}
+
+
+@app.get("/")
+def root():
+    return {
+        "service": "Api-service",
+        "status": "Running",
+        "docs": "/docs",
+    }
+
+
+@app.get("/favicon.ico", include_in_schema=False)
+def favicon():
+    return Response(status_code=204)
 
 
 @app.post("/chat")

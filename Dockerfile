@@ -2,6 +2,8 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
+LABEL org.opencontainers.image.title="Api-service"
+
 # Install system dependencies (if needed later, e.g. for MySQL drivers)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
