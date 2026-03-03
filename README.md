@@ -48,8 +48,8 @@ Built with FastAPI, MySQL, and Docker, it adds **API key authentication**, **per
 #### 1. Setup
 
 ```bash
-git clone https://github.com/dinesh783/Api-service.git
-cd Api-service
+git clone https://github.com/dinesh783/api-service.git
+cd api-service
 
 python -m venv venv
 venv\Scripts\activate   # on Windows
@@ -65,9 +65,6 @@ DB_USER=your_mysql_user
 DB_PASSWORD=your_mysql_password
 DB_NAME=eightgen
 ```
-
-Ensure MySQL is running and the `DB_NAME` database exists.
-
 #### 2. Run the app
 
 ```bash
@@ -87,13 +84,13 @@ Build the image:
 docker build -t Api-service .
 ```
 
-Run the container (MySQL running on the host):
+Run the container (DB running on the host):
 
 ```bash
 docker run -p 8001:8000 ^
   -e DB_HOST=host.docker.internal ^
-  -e DB_USER=your_mysql_user ^
-  -e DB_PASSWORD=your_mysql_password ^
+  -e DB_USER=your_user ^
+  -e DB_PASSWORD=your_password ^
   -e DB_NAME=eightgen ^
   Api-service
 ```
