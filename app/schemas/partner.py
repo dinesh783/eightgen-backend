@@ -1,8 +1,4 @@
-from pydantic import BaseModel
-
-
-class ChatRequest(BaseModel):
-    message: str
+from pydantic import BaseModel, ConfigDict
 
 
 class PartnerBase(BaseModel):
@@ -16,7 +12,8 @@ class PartnerCreate(PartnerBase):
 
 class PartnerOut(PartnerBase):
     id: int
-    api_key: str
+    model_config = ConfigDict(from_attributes=True)
 
-    class Config:
-        from_attributes = True
+
+class PartnerCreateResponse(PartnerOut):
+    api_key: str
